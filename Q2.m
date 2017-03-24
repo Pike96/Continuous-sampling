@@ -6,8 +6,8 @@ th = 5.5;   % theta = 5.5
 c = (exp(-th)*th^(th-1)/gamma(th))/(exp(-th/th)/th); % f(5.5)/g(5.5)
 while(i<=99999)
     u1 = rand; u2 = rand;
-    Y = -5.5*log(u1);       % Inverse Exp()
-    if u2 <= (exp(-Y)*Y^(th-1)/gamma(th))/((exp(-Y/th)/th)*c)
+    Y = -th*log(u1);       % Inverse Exp(theta)
+    if u2 <= (exp(-Y)*Y^(th-1)/gamma(th))/((exp(-Y/th)/th)*c) % u<=f/g*c
         i = i + 1;
         X(i) = Y;
     else rej = rej + 1;
