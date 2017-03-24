@@ -1,20 +1,16 @@
 clear all; close all; clc;
 
-tic;
-for i = 1:1e5
-    M1 = 1; % Mean of X
-    M2 = 2; % Mean of Y
-    V1 = 4; % Variance of X
-    V2 = 9; % Variance of Y
+M1 = 1; % Mean of X
+M2 = 2; % Mean of Y
+V1 = 4; % Variance of X
+V2 = 9; % Variance of Y
 
-    u1 = rand(1000,1);
-    u2 = rand(1000,1);
+u1 = rand(1000,1);
+u2 = rand(1000,1);
 
-    % Geberate X and Y that are N(0,1) random variables and independent
-    X = sqrt( - 2*log(u1)).*cos(2*pi*u2 ); 
-    Y = sqrt( - 2*log(u1)).*sin(2*pi*u2 );
-end
-toc;
+% Geberate X and Y that are N(0,1) random variables and independent
+X = sqrt( - 2*log(u1)).*cos(2*pi*u2 ); 
+Y = sqrt( - 2*log(u1)).*sin(2*pi*u2 );
 
 % Scale them to a particular mean and variance 
 x = sqrt(V1)*X + M1; % x~ N(M1,V1)
