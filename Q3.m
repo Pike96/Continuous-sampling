@@ -1,36 +1,25 @@
-figure(1)
-x = -5:.01:5;
-beta = 0;
+clear all; close all; clc;
+
+alpha = 2;
+beta = 0.75;
 gam = 1;
 delta = 0;
-plot( x , stblpdf(x,.5,beta,gam,delta,'quick'),...
-  x , stblpdf(x,1,beta,gam,delta,'quick'),...
-  x , stblpdf(x,1.8,beta,gam,delta,'quick'),...
-  x , stblpdf(x,2,beta,gam,delta,'quick') )
-axis([-5 5 0 .7]);
-title('Symmetric \alpha-stable densities, \beta = 0, \gamma = 1, \delta = 0');
-legend('\alpha = 0.5',...
-    '\alpha = 1.0',...
-    '\alpha = 1.8',...
-    '\alpha = 2' )
+X = stblrnd(alpha,beta,1,0,1e8,1);
+lim = 5;
+Y = X(X<lim&X>-lim); % Only take numbers within limit
 
-figure(2)
-x = -5:.01:5;
-beta = 1;
-gam = 1;
-delta = 0;
-plot( x , stblpdf(x,.5,beta,gam,delta,'quick'),...
-  x , stblpdf(x,1,beta,gam,delta,'quick'),...
-  x , stblpdf(x,1.8,beta,gam,delta,'quick'),...
-  x , stblpdf(x,2,beta,gam,delta,'quick') )
-axis([-5 5 0 .6]);
-title('Skewed \alpha-stable densities, \beta = 0.75,\gamma = 1, \delta = 0');
-legend('\alpha = 0.5',...
-    '\alpha = 1.0',...
-    '\alpha = 1.8',...
-    '\alpha = 2' )
+yyaxis left
+hist(Y,100000)
 
-figure(3)
-X = stblrnd(1.5,0,1,0,1000,1);
-hist(X,1000)
-xlim([-5 5])
+title(['X histogram & Symmetric \alpha-stable densities, \alpha = ',...
+    num2str(alpha), ', \beta = ',...
+    num2str(beta), ', \gamma = 1, \delta = 0'])
+xlabel('Value')
+ylabel('Number of samples')
+
+yyaxis right
+t = -lim:.01:lim;
+pmf = stblpdf(t,alpha,beta,gam,delta,'quick');
+plot(t, pmf, 'r');
+ylabel('Theoretical pmf')
+set(gca, 'YColor', 'r')
